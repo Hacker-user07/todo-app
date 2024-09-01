@@ -1,75 +1,73 @@
-const express = require("express")
-const mongoose = require("mongoose")
-const cors = require("cors")
-const routes= require('./routes/ToDoRoute')
-require('dotenv').config()
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const routes = require('./routes/ToDoRoute');
+require('dotenv').config();
 const { initializeApp, cert } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
 
-var serviceAccount = require("./key.json")
+const serviceAccount = require("./key.json");
 
 initializeApp({
-    credential: cert(serviceAccount)
+  credential: cert(serviceAccount)
 });
 
 const db = getFirestore();
 
-const app = express()
+const app = express();
 app.set("view engine", "ejs");
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
 
-const PORT = process.env.port || 5000
-
+const PORT = process.env.port || 5000;
 
 mongoose
-.connect(process.env.MONGODB_URL)
-.then(() => console.log("DB Connected"))
-.catch((error)=> console.log(error))
+  .connect(process.env.MONGODB_URL)
+  .then(() => console.log("DB Connected"))
+  .catch((error) => console.log(error));
 
 app.get("/", (req, res) => {
-    res.render("start")
-})
+  res.render("start");
+});
 
-app.get("/login",(req,res) =>{
-    res.render("login")
-})
+app.get("/login", (req, res) => {
+  res.render("login");
+});
 
-app.get("/loginsubmit",(req, res) => {
-    const email = req.query.email
-    const password = req.query.password
+app.get("/loginsubmit", (req, res) => {
+  const email = req.query.email;
+  const password = req.query.password;
 
-    db.collection("users").where("email", "==", email).where("password","==",password).get().then((docs) =>{
-        if(docs.size>0) {
-            res.redirect("https://66d44e6f7f08f41d65b2fae7--steady-pie-c0c842.netlify.app/")
-        }
-        else{
-            res.render("login", { message: "User not found" })
-        }
-    })
-})
+  db.collection("users").where("email", "==", email).where("password", "==", password).get().then((docs) => {
+    if (docs.size > 0) {
+      res.render("collide");
+    } else {
+      res.render("login", { message: "User not found" });
+    }
+  });
+});
 
 app.get("/signupsubmit", (req, res) => {
-    const full_name= req.query.full_name
-    const email = req.query.email
-    const password = req.query.password
-    const date = req.query.date
+  const full_name = req.query.full_name;
+  const email = req.query.email;
+  const password = req.query.password;
+  const date = req.query.date;
 
-    db.collection('users').add({
-        name: full_name,
-        email: email,
-        password: password,
-        DOB: date
-    }).then(() => {
-        res.render('login')
-        console.log("signed successfull")
-    })
-})
+  db.collection('users').add({
+    name: full_name,
+    email: email,
+    password: password,
+    DOB: date
+  }).then(() => {
+    res.render('login');
+    console.log("signed successfull");
+  });
+});
 
-app.get("/signup",(req,res)=>{
-    res.render("signup")
-})
+app.get("/signup", (req, res) => {
+  res.render("signup");
+});
 
-app.use(routes)
- 
-app.listen(PORT, ()=> console.log(`listening on port ${PORT}`))
+app.use(routes);
+
+app.listen(PORT, () => console.log(`listening on port ${PORT}`));
