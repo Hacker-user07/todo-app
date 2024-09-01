@@ -41,7 +41,7 @@ app.get("/loginsubmit",(req, res) => {
 
     db.collection("users").where("email", "==", email).where("password","==",password).get().then((docs) =>{
         if(docs.size>0) {
-            res.redirect("https://steady-pie-c0c842.netlify.app")
+            res.redirect("https://66d44e6f7f08f41d65b2fae7--steady-pie-c0c842.netlify.app/")
         }
         else{
             res.render("login", { message: "User not found" })
