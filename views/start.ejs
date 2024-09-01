@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-eqiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Home Page</title>
+        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    </head>
+    <style>
+
+  
+  body {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    background:url('https://www.ocinium.com/cdn/shop/files/Daisies_for_Banner.jpg?v=1663573875&width=1000') no-repeat;
+    background-size:cover;
+    background-position: center;
+  }
+  .wrapper {
+    width:420px;
+    background:transparent;
+    border: 2px solid rgba(255,255,255,.2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    color:#fff;
+    border-radius:10px;
+    padding: 30px 40px;
+  }
+  
+  .wrapper h1 {
+    font-size:36px;
+    text-align:center;
+  }
+
+  .wrapper .btn {
+    width:100%;
+    height:45px;
+    background:#fff;
+    border:none;
+    outline:none;
+    border-radius:40px;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+    cursor:pointer;
+    font-size:16px;
+    color:#333;
+    font-weight:600;
+  }
+    </style>
+    <body>
+        <div class = "wrapper">
+            <h1>Welcome!</h1>
+            <form action="/login" method="GET">
+                <button type="submit" id="login" class="btn">Login</button><br>
+            </form>
+            <form action="/signup " method="GET">
+                <button type="submit" id="register" class="btn">Register</button>
+            </form>
+        </div>
+        
+    </body>
+
+
+</html>
